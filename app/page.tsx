@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import Hero from '@/components/Hero';
-import { featuredProjects, focusAreas, timeline } from '@/lib/site-content';
+import { currentWork, focusAreas, futureProjects, publicProjects, timeline } from '@/lib/site-content';
+import ProjectPreview from '@/components/ProjectPreview';
 
 export default function Page() {
   return (
@@ -12,11 +13,12 @@ export default function Page() {
         <div className="glass-panel rounded-[2rem] p-8">
           <div className="text-xs uppercase tracking-[0.32em] text-zinc-500">Approach</div>
           <h2 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-white">
-            A personal site should feel like a real product, not a placeholder.
+            A personal site should make it obvious what is public, private and next.
           </h2>
           <p className="mt-5 text-base leading-7 text-zinc-400">
-            This version leans into stronger hierarchy, more controlled contrast, and motion that
-            supports the layout instead of fighting it.
+            I wanted the site to act like a real product page for my work. That means clearer
+            hierarchy, better project pages and a presentation that explains the work instead of
+            just listing repo names.
           </p>
         </div>
 
@@ -35,9 +37,37 @@ export default function Page() {
       <section className="section-shell mt-24">
         <div className="flex items-end justify-between gap-6">
           <div>
+            <div className="text-xs uppercase tracking-[0.32em] text-zinc-500">Current work</div>
+            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-white">
+              What I am working on now.
+            </h2>
+          </div>
+          <Link
+            href="/projects"
+            className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10 md:inline-flex"
+          >
+            Open projects
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {currentWork.map((item) => (
+            <div key={item.title} className="glass-panel rounded-[2rem] p-6">
+              <div className="text-xs uppercase tracking-[0.28em] text-[var(--accent)]">Now</div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.05em] text-white">{item.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-zinc-400">{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell mt-24">
+        <div className="flex items-end justify-between gap-6">
+          <div>
             <div className="text-xs uppercase tracking-[0.32em] text-zinc-500">Selected work</div>
             <h2 className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-white">
-              Featured projects with clearer storytelling.
+              Open projects you can click into.
             </h2>
           </div>
           <Link
@@ -50,7 +80,7 @@ export default function Page() {
         </div>
 
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {featuredProjects.map((project, index) => (
+          {publicProjects.map((project, index) => (
             <article
               key={project.slug}
               className={`glass-panel rounded-[2rem] p-6 ${index === 1 ? 'lg:-translate-y-4' : ''}`}
@@ -61,7 +91,7 @@ export default function Page() {
                 </div>
                 <div className="text-sm text-zinc-500">{project.year}</div>
               </div>
-              <h3 className="mt-8 text-2xl font-semibold tracking-[-0.05em] text-white">{project.title}</h3>
+              <h3 className="mt-8 text-2xl font-semibold tracking-[-0.05em] text-white">{project.displayTitle}</h3>
               <p className="mt-4 text-sm leading-7 text-zinc-400">{project.summary}</p>
               <div className="mt-6 flex flex-wrap gap-2">
                 {project.stack.map((item) => (
@@ -73,6 +103,27 @@ export default function Page() {
                   </span>
                 ))}
               </div>
+              <div className="mt-6">
+                <ProjectPreview
+                  headline={project.previewHeadline}
+                  blurb={project.previewBlurb}
+                  stats={project.previewStats}
+                  mode={
+                    project.slug === 'webbtjanst-com'
+                      ? 'agency'
+                      : project.slug === 'perplexity-serch-v2'
+                        ? 'search'
+                        : 'portfolio'
+                  }
+                />
+              </div>
+              <Link
+                href={`/projects/${project.slug}`}
+                className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white hover:bg-white/10"
+              >
+                Open project
+                <ArrowRight size={14} />
+              </Link>
             </article>
           ))}
         </div>
@@ -82,11 +133,12 @@ export default function Page() {
         <div className="glass-panel rounded-[2rem] p-8">
           <div className="text-xs uppercase tracking-[0.32em] text-zinc-500">Direction</div>
           <h2 className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-white">
-            The site now has real depth and room to grow.
+            The public site is only the front layer.
           </h2>
           <p className="mt-5 text-base leading-7 text-zinc-400">
-            Home sets the tone, About explains the thinking, Projects shows the work, and Contact
-            turns the portfolio into something actionable.
+            Behind the public work there is a bigger set of private systems, research projects and
+            future work that I am still building. That is where PEGASUS and the trading systems fit
+            in.
           </p>
         </div>
 
@@ -100,6 +152,16 @@ export default function Page() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section-shell mt-24">
+        <div className="glass-panel rounded-[2.4rem] p-8 md:p-12">
+          <div className="text-xs uppercase tracking-[0.32em] text-zinc-500">Future</div>
+          <h2 className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-white">
+            {futureProjects[0].title}
+          </h2>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-zinc-400">{futureProjects[0].summary}</p>
         </div>
       </section>
     </main>

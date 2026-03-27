@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import AgeDisplay from './AgeDisplay';
 import GlowingBackground from './GlowingBackground';
-import { metrics } from '@/lib/site-content';
+import { currentWork, metrics } from '@/lib/site-content';
 
 export default function Hero() {
   return (
@@ -21,16 +21,16 @@ export default function Hero() {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-4 py-2 text-xs uppercase tracking-[0.3em] text-zinc-300">
             <Sparkles size={14} className="text-[var(--warm)]" />
-            Design, code, AI and 3D
+            Web, AI, automation and product work
           </div>
 
           <h1 className="section-title max-w-4xl text-white">
-            Building digital work that feels deliberate, modern and worth remembering.
+            Building public products, private systems and automation that actually ships.
           </h1>
 
           <p className="section-copy mt-8 max-w-2xl">
-            Viktor Berg, <AgeDisplay birthDate="2009-01-19" />. I create portfolio-worthy products,
-            visual experiments, and technical systems with a sharper eye for motion, structure and
+            Viktor Berg, <AgeDisplay birthDate="2009-01-19" />. I build websites, AI systems,
+            automation and research-heavy tools with a focus on speed, clarity and a strong visual
             presentation.
           </p>
 
@@ -79,7 +79,7 @@ export default function Hero() {
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <div className="text-xs uppercase tracking-[0.28em] text-zinc-500">Live focus</div>
-                  <div className="mt-2 text-xl font-semibold text-white">Recent activity</div>
+                  <div className="mt-2 text-xl font-semibold text-white">What I am building now</div>
                 </div>
                 <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">
                   Available
@@ -87,25 +87,21 @@ export default function Hero() {
               </div>
 
               <div className="grid gap-4">
-                {[
-                  ['Portfolio system', 'Rebuilding sections, motion and page structure'],
-                  ['AI workflows', 'Designing interfaces for experimentation and delivery'],
-                  ['3D presentation', 'Turning renders into cleaner case studies'],
-                ].map(([title, text], index) => (
+                {currentWork.map((item, index) => (
                   <motion.div
-                    key={title}
+                    key={item.title}
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     className="rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-4"
                   >
                     <div className="flex items-center justify-between">
-                      <div className="text-sm font-medium text-white">{title}</div>
+                      <div className="text-sm font-medium text-white">{item.title}</div>
                       <div className="rounded-full bg-[var(--accent-strong)]/15 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[var(--accent)]">
                         Active
                       </div>
                     </div>
-                    <p className="mt-3 text-sm leading-6 text-zinc-400">{text}</p>
+                    <p className="mt-3 text-sm leading-6 text-zinc-400">{item.detail}</p>
                   </motion.div>
                 ))}
               </div>
@@ -117,7 +113,7 @@ export default function Hero() {
               transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
             >
               <div className="text-xs uppercase tracking-[0.28em] text-zinc-500">Edge</div>
-              <div className="mt-2 text-sm text-white">Clean visuals, tighter motion, stronger structure.</div>
+              <div className="mt-2 text-sm text-white">Private systems, public products and a future roadmap.</div>
             </motion.div>
           </div>
         </motion.div>

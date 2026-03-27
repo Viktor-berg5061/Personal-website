@@ -15,8 +15,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Viktor Berg | Portfolio',
-  description: 'Portfolio of Viktor Berg with projects in development, AI, 3D, and digital product work.',
+  title: 'Viktor Berg | Web, AI and automation',
+  description:
+    'Portfolio of Viktor Berg showing public web work, private AI systems, automation and future product ideas.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

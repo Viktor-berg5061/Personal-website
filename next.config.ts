@@ -6,6 +6,9 @@ const basePath = isGithubActions ? `/${repoName}` : '';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    webpackBuildWorker: false,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
