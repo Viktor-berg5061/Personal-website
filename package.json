@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "predev": "node scripts/prepare-next-dir.cjs",
+    "prebuild": "node scripts/prepare-next-dir.cjs",
+    "prestart": "node scripts/prepare-next-dir.cjs",
+    "dev": "node scripts/run-next.cjs dev",
+    "build": "node scripts/run-next.cjs build",
+    "start": "node scripts/run-next.cjs start",
     "lint": "eslint .",
     "clean": "next clean"
   },
